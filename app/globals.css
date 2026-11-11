@@ -1,26 +1,416 @@
 @import "tailwindcss";
 
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
+  --muted: #8a8a8a;
+  --muted-dim: #5c5c5c;
+  --border: rgba(255, 255, 255, 0.12);
+  --accent: #d4c45a;
+  --accent-soft: #c4b84a;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-muted-dim: var(--muted-dim);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-libre-baskerville);
+  --font-mono: var(--font-ibm-plex-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 35%, transparent);
+  color: var(--foreground);
+}
+
+@keyframes hero-draw {
+  from {
+    stroke-dashoffset: 1;
+    opacity: 0.35;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-intro {
+  0%,
+  12% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  18% {
+    offset-distance: 0%;
+    opacity: 1;
+  }
+  34% {
+    offset-distance: 100%;
+    opacity: 1;
+  }
+  44%,
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes hero-packet {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  2.6% {
+    offset-distance: 2.04%;
+    opacity: 1;
+  }
+  9.1%,
+  12.1% {
+    offset-distance: 7.14%;
+    opacity: 1;
+  }
+  20.3%,
+  23.3% {
+    offset-distance: 18.66%;
+    opacity: 1;
+  }
+  39.7%,
+  42.7% {
+    offset-distance: 41.69%;
+    opacity: 1;
+  }
+  50.9%,
+  53.9% {
+    offset-distance: 53.21%;
+    opacity: 1;
+  }
+  57.4%,
+  60.4% {
+    offset-distance: 58.16%;
+    opacity: 1;
+  }
+  71%,
+  74% {
+    offset-distance: 73.03%;
+    opacity: 1;
+  }
+  84.6%,
+  87.6% {
+    offset-distance: 87.9%;
+    opacity: 1;
+  }
+  91% {
+    offset-distance: 92.8%;
+    opacity: 1;
+  }
+  95%,
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes hero-code-loader {
+  0%,
+  42% {
+    opacity: 0;
+    stroke-dashoffset: 0.22;
+  }
+  46% {
+    opacity: 1;
+    stroke-dashoffset: 0.22;
+  }
+  94% {
+    opacity: 1;
+    stroke-dashoffset: -0.78;
+  }
+  100% {
+    opacity: 0;
+    stroke-dashoffset: -0.78;
+  }
+}
+
+@keyframes section-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-diagram-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: hero-draw 1.6s ease-out forwards;
+}
+
+.hero-diagram-shape {
+  opacity: 0;
+  animation: hero-fade-up 0.8s ease-out forwards;
+}
+
+.hero-diagram-node {
+  offset-rotate: 0deg;
+  offset-anchor: center;
+}
+
+.hero-diagram-node-intro {
+  opacity: 0;
+  animation: hero-intro 7s linear 0.8s forwards;
+}
+
+.hero-diagram-node-main {
+  opacity: 0;
+  animation: hero-packet 16s linear 7.8s infinite;
+}
+
+.hero-code-loader {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-dasharray: 0.22 0.78;
+  opacity: 0;
+  animation: hero-code-loader 7s linear 0.8s forwards;
+}
+
+.hero-diagram-visit {
+  animation-duration: 16s;
+  animation-timing-function: linear;
+  animation-delay: 7.8s;
+  animation-iteration-count: infinite;
+}
+
+.hero-diagram-visit-browser {
+  animation-name: hero-visit-browser;
+  animation-duration: 7s;
+  animation-delay: 0.8s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.hero-diagram-visit-code {
+  animation-name: hero-visit-code;
+  animation-duration: 7s;
+  animation-delay: 0.8s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.hero-diagram-visit-hub {
+  animation-name: hero-visit-hub;
+}
+
+.hero-diagram-visit-leaf-left {
+  animation-name: hero-visit-leaf-left;
+}
+
+.hero-diagram-visit-leaf-center {
+  animation-name: hero-visit-leaf-center;
+}
+
+.hero-diagram-visit-leaf-right {
+  animation-name: hero-visit-leaf-right;
+}
+
+.hero-diagram-visit-side-left {
+  animation-name: hero-visit-side-left;
+}
+
+.hero-diagram-visit-side-right {
+  animation-name: hero-visit-side-right;
+}
+
+@keyframes hero-visit-browser {
+  0%,
+  24% {
+    stroke: var(--accent);
+    filter: drop-shadow(0 0 6px var(--accent));
+  }
+  36%,
+  100% {
+    stroke: rgba(255, 255, 255, 0.7);
+    filter: none;
+  }
+}
+
+@keyframes hero-visit-code {
+  0%,
+  40% {
+    stroke: rgba(255, 255, 255, 0.65);
+    filter: none;
+  }
+  46%,
+  94% {
+    stroke: var(--accent);
+    filter: drop-shadow(0 0 6px var(--accent));
+  }
+  100% {
+    stroke: rgba(255, 255, 255, 0.65);
+    filter: none;
+  }
+}
+
+@keyframes hero-visit-hub {
+  0%,
+  7.6%,
+  13.6%,
+  49.4%,
+  55.4%,
+  100% {
+    stroke: rgba(255, 255, 255, 0.7);
+    filter: none;
+  }
+  9.1%,
+  12.1%,
+  50.9%,
+  53.9% {
+    stroke: var(--accent);
+    filter: drop-shadow(0 0 6px var(--accent));
+  }
+}
+
+@keyframes hero-visit-leaf-left {
+  0%,
+  18.8%,
+  24.8%,
+  100% {
+    stroke: rgba(255, 255, 255, 0.5);
+    filter: none;
+  }
+  20.3%,
+  23.3% {
+    stroke: var(--accent);
+    filter: drop-shadow(0 0 6px var(--accent));
+  }
+}
+
+@keyframes hero-visit-leaf-right {
+  0%,
+  38.2%,
+  44.2%,
+  100% {
+    stroke: rgba(255, 255, 255, 0.5);
+    filter: none;
+  }
+  39.7%,
+  42.7% {
+    stroke: var(--accent);
+    filter: drop-shadow(0 0 6px var(--accent));
+  }
+}
+
+@keyframes hero-visit-leaf-center {
+  0%,
+  55.9%,
+  61.9%,
+  100% {
+    stroke: rgba(255, 255, 255, 0.5);
+    filter: none;
+  }
+  57.4%,
+  60.4% {
+    stroke: var(--accent);
+    filter: drop-shadow(0 0 6px var(--accent));
+  }
+}
+
+@keyframes hero-visit-side-left {
+  0%,
+  69.5%,
+  75.5%,
+  100% {
+    stroke: rgba(255, 255, 255, 0.55);
+    filter: none;
+  }
+  71%,
+  74% {
+    stroke: var(--accent);
+    filter: drop-shadow(0 0 6px var(--accent));
+  }
+}
+
+@keyframes hero-visit-side-right {
+  0%,
+  83.1%,
+  89.1%,
+  100% {
+    stroke: rgba(255, 255, 255, 0.55);
+    filter: none;
+  }
+  84.6%,
+  87.6% {
+    stroke: var(--accent);
+    filter: drop-shadow(0 0 6px var(--accent));
+  }
+}
+
+.reveal {
+  opacity: 0;
+  animation: section-reveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-diagram-line,
+  .hero-diagram-shape,
+  .hero-diagram-node,
+  .hero-diagram-visit,
+  .hero-code-loader,
+  .reveal {
+    animation: none !important;
+    opacity: 1 !important;
+    stroke-dashoffset: 0 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .hero-diagram-node,
+  .hero-code-loader {
+    display: none !important;
+  }
 }
