@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
       "*.css": {
         loaders: ["@tailwindcss/turbopack"],
         as: "*.css",
+        // The Tailwind loader emits plain CSS and an empty module map.
+        // Leave *.module.css on Turbopack's built-in CSS module pipeline.
+        condition: { not: { path: /\.module\.css$/ } },
       },
     },
   },
