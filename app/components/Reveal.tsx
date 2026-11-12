@@ -33,7 +33,8 @@ export default function Reveal({
           observer.disconnect();
         }
       },
-      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" },
+      // Trigger as soon as the block enters view (hash nav + normal scroll).
+      { threshold: 0, rootMargin: "0px 0px -4% 0px" },
     );
 
     observer.observe(node);

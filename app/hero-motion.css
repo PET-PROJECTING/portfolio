@@ -1,0 +1,258 @@
+.hero-diagram-packet,
+.hero-diagram-split,
+.hero-code-loader,
+.hero-code-mark,
+.hero-diagram-visit {
+  animation-duration: 22s;
+}
+
+.hero-code-loader {
+  animation-name: hero-code-loader-spin !important;
+}
+
+.hero-code-mark {
+  animation-name: hero-code-mark !important;
+}
+
+.hero-diagram-split-left {
+  animation-name: hero-split-left-b !important;
+}
+
+.hero-diagram-split-center {
+  animation-name: hero-split-center-b !important;
+}
+
+.hero-diagram-split-right {
+  animation-name: hero-split-right-b !important;
+}
+
+.hero-diagram-visit-hub {
+  animation-name: hero-visit-hub-b !important;
+}
+
+.hero-diagram-visit-leaf-left,
+.hero-diagram-visit-leaf-center,
+.hero-diagram-visit-leaf-right {
+  animation-name: hero-visit-leaf-b !important;
+}
+
+.hero-diagram-visit-side-left {
+  animation-name: hero-visit-side-left-b !important;
+}
+
+.hero-diagram-visit-side-right {
+  animation-name: hero-visit-side-right-b !important;
+}
+
+@keyframes hero-code-loader-spin {
+  0% {
+    opacity: 0;
+    stroke-dasharray: 0.06 0.94;
+    stroke-dashoffset: 1.38;
+  }
+  2%,
+  4% {
+    opacity: 1;
+    stroke-dasharray: 0.06 0.94;
+    stroke-dashoffset: 1.38;
+  }
+  31%,
+  33% {
+    opacity: 1;
+    stroke-dasharray: 0.06 0.94;
+    stroke-dashoffset: -0.62;
+  }
+  35%,
+  100% {
+    opacity: 0;
+    stroke-dasharray: 0.06 0.94;
+    stroke-dashoffset: -0.62;
+  }
+}
+
+@keyframes hero-code-mark {
+  0%,
+  1.5%,
+  35%,
+  100% {
+    fill: rgba(255, 255, 255, 0.85);
+  }
+  2%,
+  33% {
+    fill: var(--accent);
+  }
+}
+
+@keyframes hero-packet-route {
+  0%,
+  32.5% {
+    opacity: 0;
+    transform: translate(210px, 166px);
+  }
+  35% {
+    opacity: 1;
+    transform: translate(210px, 166px);
+  }
+  37% {
+    opacity: 1;
+    transform: translate(210px, 196px);
+  }
+  48%,
+  51% {
+    opacity: 1;
+    transform: translate(78px, 196px);
+  }
+  63%,
+  66% {
+    opacity: 1;
+    transform: translate(342px, 196px);
+  }
+  72% {
+    opacity: 1;
+    transform: translate(210px, 196px);
+  }
+  74%,
+  79% {
+    opacity: 1;
+    transform: translate(210px, 230px);
+  }
+  82%,
+  100% {
+    opacity: 0;
+    transform: translate(210px, 230px);
+  }
+}
+
+@keyframes hero-split-left-b {
+  0%,
+  77% {
+    opacity: 0;
+    transform: translate(210px, 230px);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(210px, 230px);
+  }
+  86% {
+    opacity: 1;
+    transform: translate(120px, 230px);
+  }
+  90%,
+  95% {
+    opacity: 1;
+    transform: translate(120px, 298px);
+  }
+  99%,
+  100% {
+    opacity: 0;
+    transform: translate(120px, 298px);
+  }
+}
+
+@keyframes hero-split-center-b {
+  0%,
+  77% {
+    opacity: 0;
+    transform: translate(210px, 230px);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(210px, 230px);
+  }
+  90%,
+  95% {
+    opacity: 1;
+    transform: translate(210px, 298px);
+  }
+  99%,
+  100% {
+    opacity: 0;
+    transform: translate(210px, 298px);
+  }
+}
+
+@keyframes hero-split-right-b {
+  0%,
+  77% {
+    opacity: 0;
+    transform: translate(210px, 230px);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(210px, 230px);
+  }
+  86% {
+    opacity: 1;
+    transform: translate(300px, 230px);
+  }
+  90%,
+  95% {
+    opacity: 1;
+    transform: translate(300px, 298px);
+  }
+  99%,
+  100% {
+    opacity: 0;
+    transform: translate(300px, 298px);
+  }
+}
+
+@keyframes hero-visit-hub-b {
+  0%,
+  72%,
+  81%,
+  100% {
+    stroke: rgba(255, 255, 255, 0.7);
+    filter: none;
+  }
+  74%,
+  79% {
+    stroke: var(--accent);
+    filter: drop-shadow(0 0 6px var(--accent));
+  }
+}
+
+@keyframes hero-visit-leaf-b {
+  0%,
+  88%,
+  97%,
+  100% {
+    stroke: rgba(255, 255, 255, 0.5);
+    filter: none;
+  }
+  90%,
+  95% {
+    stroke: var(--accent);
+    filter: drop-shadow(0 0 6px var(--accent));
+  }
+}
+
+@keyframes hero-visit-side-left-b {
+  0%,
+  46%,
+  54%,
+  100% {
+    stroke: rgba(255, 255, 255, 0.55);
+    filter: none;
+  }
+  48%,
+  52% {
+    stroke: var(--accent);
+    filter: drop-shadow(0 0 6px var(--accent));
+  }
+}
+
+@keyframes hero-visit-side-right-b {
+  0%,
+  61%,
+  68%,
+  100% {
+    stroke: rgba(255, 255, 255, 0.55);
+    filter: none;
+  }
+  63%,
+  67% {
+    stroke: var(--accent);
+    filter: drop-shadow(0 0 6px var(--accent));
+  }
+}

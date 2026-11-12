@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Inter, Libre_Baskerville } from "next/font/google";
+import TransitionProvider from "./components/TransitionProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
   title: "Oleh Klym — Full-Stack Developer",
   description:
     "Full-stack developer based in Ukraine. Building products and connecting systems across startup and enterprise.",
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -32,7 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${inter.variable} ${libreBaskerville.variable} ${ibmPlexMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
-        {children}
+        <TransitionProvider>{children}</TransitionProvider>
       </body>
     </html>
   );

@@ -1,7 +1,25 @@
+import type { ReactNode } from "react";
 import ExternalLink from "./ExternalLink";
 import HeroDiagram from "./HeroDiagram";
+import Magnetic from "./Magnetic";
+import ScrambleText from "./ScrambleText";
+
+function Code({ children }: { children: ReactNode }) {
+  return (
+    <code className="whitespace-nowrap rounded bg-accent/15 px-1.5 py-0.5 font-mono text-[0.92em] text-accent">
+      {children}
+    </code>
+  );
+}
 
 export default function Hero() {
+  const contactEmail = process.env.CONTACT_EMAIL?.trim();
+  if (!contactEmail) {
+    throw new Error(
+      "CONTACT_EMAIL is not set. Set it to the inbox for the Get in touch link.",
+    );
+  }
+
   return (
     <section
       id="top"
@@ -15,12 +33,14 @@ export default function Hero() {
             <span aria-hidden="true" className="text-accent">
               ●
             </span>
+            Open to work
           </p>
           <p className="flex items-center gap-2 text-right">
             Based in Ukraine
             <span aria-hidden="true" className="text-accent">
               ●
             </span>
+            Remote
           </p>
         </div>
 
@@ -31,9 +51,14 @@ export default function Hero() {
               className="reveal text-[clamp(2.4rem,6vw,4.75rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground"
               style={{ animationDelay: "0.08s" }}
             >
-              Building products.
-              <br />
-              Connecting systems.
+              <ScrambleText
+                as="span"
+                text={"Building products.\nConnecting systems."}
+                trigger="immediate"
+                delayMs={120}
+                durationMs={620}
+                className="block"
+              />
             </h1>
 
             <div
@@ -41,39 +66,55 @@ export default function Hero() {
               style={{ animationDelay: "0.18s" }}
             >
               <div className="sm:pr-2">
-                <p className="text-3xl font-semibold tracking-tight md:text-4xl">
-                  4+ Years
+                <p className="text-4xl font-semibold leading-none tracking-tight md:text-5xl">
+                  4+ years
                 </p>
-                <p className="mt-2 font-mono text-[11px] tracking-[0.16em] uppercase text-muted">
+                <p className="mt-3 font-mono text-[11px] tracking-[0.16em] uppercase text-muted">
                   Startup + Enterprise
                 </p>
               </div>
 
               <div className="border-t border-border pt-6 sm:border-t-0 sm:border-l sm:pt-0 sm:pl-10">
-                <p className="max-w-md text-[15px] leading-relaxed text-foreground/90 md:text-base">
-                  I&apos;m Oleh Klym. I build full-stack applications, from the
-                  interface to the systems behind it.
-                </p>
+                <div className="max-w-md space-y-3 text-[15px] leading-relaxed text-foreground/90 md:text-base">
+                  <p>
+                    I&apos;m Oleh Klym, a <strong>full-stack developer</strong>{" "}
+                    working with <Code>TypeScript</Code>, <Code>React</Code>,{" "}
+                    <Code>Next.js</Code>, and{" "}
+                    <Code>Node.js</Code> (<Code>Express</Code>/<Code>NestJS</Code>).
+                  </p>
+                  <p>
+                    I turn product ideas into working features, from the first
+                    sketch to production, with AI as part of my daily workflow.
+                  </p>
+                </div>
                 <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3 text-sm">
-                  <ExternalLink
-                    underline
-                    className="text-foreground decoration-accent"
-                  >
-                    Download résumé
-                  </ExternalLink>
-                  <ExternalLink
-                    underline
-                    className="text-foreground decoration-accent"
-                  >
-                    Get in touch
-                  </ExternalLink>
+                  <Magnetic strength={0.22}>
+                    <ExternalLink
+                      href="/resume/download"
+                      underline
+                      className="text-foreground decoration-accent"
+                      data-cursor="go"
+                    >
+                      Download resume
+                    </ExternalLink>
+                  </Magnetic>
+                  <Magnetic strength={0.22}>
+                    <ExternalLink
+                      href={`mailto:${contactEmail}?subject=Work%20proposal`}
+                      underline
+                      className="text-foreground decoration-accent"
+                      data-cursor="go"
+                    >
+                      Get in touch
+                    </ExternalLink>
+                  </Magnetic>
                 </div>
               </div>
             </div>
           </div>
 
           <div
-            className="reveal flex justify-center lg:justify-end"
+            className="reveal flex justify-center self-center"
             style={{ animationDelay: "0.28s" }}
           >
             <HeroDiagram />

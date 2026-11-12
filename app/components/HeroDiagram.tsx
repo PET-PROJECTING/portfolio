@@ -1,8 +1,3 @@
-const introPath = 'path("M420 264 V302")';
-
-const packetPath =
-  'path("M420 302 V400 H330 V468 V400 H510 V468 V400 H420 V468 V366 H318 H522 H420 V302")';
-
 export default function HeroDiagram() {
   return (
     <svg
@@ -73,7 +68,6 @@ export default function HeroDiagram() {
       {/* Top browser window */}
       <g className="hero-diagram-shape" style={{ animationDelay: "0.15s" }}>
         <rect
-          className="hero-diagram-visit hero-diagram-visit-browser"
           x="150"
           y="6"
           width="120"
@@ -116,7 +110,6 @@ export default function HeroDiagram() {
       {/* Middle code panel */}
       <g className="hero-diagram-shape" style={{ animationDelay: "0.4s" }}>
         <rect
-          className="hero-diagram-visit hero-diagram-visit-code"
           x="162"
           y="104"
           width="96"
@@ -126,6 +119,7 @@ export default function HeroDiagram() {
           strokeWidth="1.25"
         />
         <text
+          className="hero-code-mark"
           x="210"
           y="138"
           textAnchor="middle"
@@ -256,24 +250,38 @@ export default function HeroDiagram() {
         />
       </g>
 
-      {/* Intro runs from the top window into the code block. The loop then starts there. */}
+      {/* After the code-box loader, one packet visits both side nodes and the hub, then three copies drop into the leaves. */}
       <rect
-        className="hero-diagram-node hero-diagram-node-intro"
+        className="hero-diagram-node hero-diagram-packet"
         x="-6"
         y="-6"
         width="12"
         height="12"
         fill="var(--accent)"
-        style={{ offsetPath: introPath }}
       />
       <rect
-        className="hero-diagram-node hero-diagram-node-main"
+        className="hero-diagram-node hero-diagram-split hero-diagram-split-left"
         x="-6"
         y="-6"
         width="12"
         height="12"
         fill="var(--accent)"
-        style={{ offsetPath: packetPath }}
+      />
+      <rect
+        className="hero-diagram-node hero-diagram-split hero-diagram-split-center"
+        x="-6"
+        y="-6"
+        width="12"
+        height="12"
+        fill="var(--accent)"
+      />
+      <rect
+        className="hero-diagram-node hero-diagram-split hero-diagram-split-right"
+        x="-6"
+        y="-6"
+        width="12"
+        height="12"
+        fill="var(--accent)"
       />
     </svg>
   );

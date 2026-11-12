@@ -1,3 +1,59 @@
+.back,
+.explore {
+  position: fixed;
+  z-index: 2100;
+  margin: 0;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.back {
+  top: 1.15rem;
+  left: 1.25rem;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.9);
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  text-decoration: none;
+  transition: opacity 200ms ease;
+}
+
+.backLink:hover {
+  opacity: 0.7;
+}
+
+.backArrow {
+  color: var(--accent);
+  font-size: 1em;
+  line-height: 1;
+  font-weight: 400;
+}
+
+.explore {
+  right: 1.5rem;
+  bottom: 1.35rem;
+  font-family: var(--font-ibm-plex-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+.exploreHidden {
+  opacity: 0;
+}
+
 .slider {
   position: fixed;
   inset: 0;
@@ -7,9 +63,9 @@
 
 .slides {
   position: absolute;
-  top: 50%;
+  top: 52%;
   left: 50%;
-  width: 64%;
+  width: 58%;
   transform: translate(-50%, -50%);
   transition:
     transform 500ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -17,7 +73,7 @@
 }
 
 .slidesOpen {
-  width: 46%;
+  width: 42%;
   transform: translate(calc(-50% - 25vw), -50%);
 }
 
@@ -34,12 +90,12 @@
 
 .card {
   background: #000;
-  padding: 0.5rem 0.5rem 2rem;
+  padding: 0.45rem;
   transform-origin: center center;
   transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
 
   &[data-hover="true"] {
-    transform: translateY(-12px) scale(1.02);
+    transform: translateY(-10px) scale(1.02);
   }
 }
 
@@ -47,12 +103,65 @@
   height: 100%;
 }
 
-.slideImg {
-  display: block;
-  width: 100%;
-  height: auto;
+.face {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
   aspect-ratio: 3 / 2;
+  overflow: hidden;
+  padding: 0.85rem 0.95rem 0.75rem;
+  background: #111;
+  color: #fff;
+}
+
+.slide:not(:first-child) .face {
+  height: 100%;
+  aspect-ratio: auto;
+}
+
+.faceName,
+.faceStack {
+  margin: 0;
+}
+
+.faceName {
+  font-size: clamp(1.15rem, 2vw, 1.7rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.faceImg {
+  flex: 1 1 auto;
+  width: 100%;
+  height: 0;
+  min-height: 0;
   object-fit: cover;
+  object-position: top center;
+}
+
+.faceFooter {
+  display: flex;
+  align-items: center;
+}
+
+.faceStack {
+  color: #8a8a8a;
+  font-family: var(--font-ibm-plex-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.drawerBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1999;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
 }
 
 .drawer {
@@ -65,12 +174,23 @@
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  background: #e4e4e7;
-  color: #18181b;
-  padding: 1.25rem 1.5rem 3rem;
+  background: #111;
+  color: #fff;
+  border-left: 1px solid #222;
+  padding: 1.25rem 1.5rem 1.5rem;
   pointer-events: none;
   translate: 100% 0;
   transition: translate 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.drawer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
 }
 
 .drawerOpen {
@@ -84,24 +204,30 @@
   right: 1.5rem;
   border: 0;
   background: transparent;
-  color: inherit;
+  color: #737373;
   cursor: pointer;
   font-family: var(--font-ibm-plex-mono), ui-monospace, monospace;
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  transition: color 160ms ease;
+}
+
+.drawerClose:hover {
+  color: #fff;
 }
 
 .drawerBody {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
-  padding-top: 5.5rem;
+  flex: 1 1 auto;
+  gap: 0;
+  padding-top: 3.75rem;
 }
 
 .drawerIntro,
-.drawerOverview {
+.drawerSection {
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
@@ -110,6 +236,7 @@
 .drawerTitle {
   margin: 0;
   max-width: 12ch;
+  color: #fff;
   font-size: clamp(2.75rem, 5vw, 4.75rem);
   font-weight: 600;
   letter-spacing: -0.045em;
@@ -119,38 +246,21 @@
 .drawerMeta,
 .drawerLabel {
   margin: 0;
-  color: #71717a;
+  color: #737373;
   font-family: var(--font-ibm-plex-mono), ui-monospace, monospace;
   font-size: 0.68rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
-.drawerFacts {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem 2.5rem;
-  margin: 0;
-}
-
-.drawerFacts div {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.drawerFacts dd {
-  margin: 0;
-  font-size: 0.95rem;
-}
-
-.drawerOverview {
+.drawerSection {
   gap: 1rem;
-  border-top: 1px solid #d4d4d8;
-  padding-top: 2rem;
+  border-top: 1px solid #222;
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
 }
 
-.drawerOverview h3 {
+.drawerSection h3 {
   display: flex;
   align-items: center;
   gap: 0.55rem;
@@ -159,21 +269,121 @@
 .drawerMark {
   width: 0.4rem;
   height: 0.4rem;
-  background: #09090b;
+  background: var(--accent);
 }
 
-.drawerOverview p {
+.drawerCopy {
   max-width: 40rem;
   margin: 0;
+  color: #d4d4d8;
   font-size: 1.05rem;
   letter-spacing: -0.015em;
   line-height: 1.35;
 }
 
+.drawerLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.drawerLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  width: fit-content;
+  border: 1px solid #2a2a2a;
+  border-radius: 999px;
+  padding: 0.4rem 0.8rem 0.4rem 0.65rem;
+  color: var(--accent);
+  font-family: var(--font-ibm-plex-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    color 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.drawerLink:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.drawerLinkIcon {
+  display: inline-flex;
+  width: 0.85rem;
+  height: 0.85rem;
+  flex: 0 0 auto;
+}
+
+.drawerLinkIcon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.drawerChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.drawerChip {
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  color: var(--accent);
+  font-family: var(--font-ibm-plex-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+}
+
+.drawerFooter {
+  margin-top: auto;
+  padding-top: 2rem;
+  border-top: 1px solid #222;
+}
+
+.drawerNext {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  font-family: var(--font-ibm-plex-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.85rem 0 0;
+  transition: opacity 160ms ease;
+}
+
+.drawerNext:hover {
+  opacity: 0.75;
+}
+
+.drawerNextName {
+  color: #a1a1aa;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
 @media (min-width: 768px) {
   .drawer {
     width: 50%;
-    padding: 1.5rem 3rem 4rem;
+    padding: 1.5rem 3rem 2rem;
   }
 
   .drawerClose {
@@ -182,8 +392,16 @@
   }
 
   .drawerBody {
-    gap: 5rem;
-    padding-top: 8rem;
+    padding-top: 4.5rem;
+  }
+
+  .drawerIntro {
+    margin-bottom: 0.25rem;
+  }
+
+  .drawerSection {
+    padding-top: 1.75rem;
+    margin-top: 1.75rem;
   }
 }
 

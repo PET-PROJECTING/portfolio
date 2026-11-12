@@ -1,10 +1,5 @@
 @import "tailwindcss";
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
+@import "./hero-motion.css";
 
 img {
   width: 100%;
@@ -37,12 +32,29 @@ img {
 
 html {
   scroll-behavior: smooth;
+  /* Hide before Lenis mounts so the native bar doesn't flash on load. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 ::selection {
@@ -72,96 +84,94 @@ body {
   }
 }
 
-@keyframes hero-intro {
+@keyframes hero-split-left {
   0%,
-  12% {
-    offset-distance: 0%;
+  72% {
     opacity: 0;
+    transform: translate(210px, 230px);
   }
-  18% {
-    offset-distance: 0%;
+  75% {
     opacity: 1;
+    transform: translate(210px, 230px);
   }
-  34% {
-    offset-distance: 100%;
+  82% {
     opacity: 1;
+    transform: translate(120px, 230px);
   }
-  44%,
+  88%,
+  93% {
+    opacity: 1;
+    transform: translate(120px, 298px);
+  }
+  98%,
   100% {
-    offset-distance: 100%;
     opacity: 0;
+    transform: translate(120px, 298px);
   }
 }
 
-@keyframes hero-packet {
-  0% {
-    offset-distance: 0%;
+@keyframes hero-split-center {
+  0%,
+  72% {
     opacity: 0;
+    transform: translate(210px, 230px);
   }
-  2.6% {
-    offset-distance: 2.04%;
+  75% {
     opacity: 1;
+    transform: translate(210px, 230px);
   }
-  9.1%,
-  12.1% {
-    offset-distance: 7.14%;
+  88%,
+  93% {
     opacity: 1;
+    transform: translate(210px, 298px);
   }
-  20.3%,
-  23.3% {
-    offset-distance: 18.66%;
-    opacity: 1;
-  }
-  39.7%,
-  42.7% {
-    offset-distance: 41.69%;
-    opacity: 1;
-  }
-  50.9%,
-  53.9% {
-    offset-distance: 53.21%;
-    opacity: 1;
-  }
-  57.4%,
-  60.4% {
-    offset-distance: 58.16%;
-    opacity: 1;
-  }
-  71%,
-  74% {
-    offset-distance: 73.03%;
-    opacity: 1;
-  }
-  84.6%,
-  87.6% {
-    offset-distance: 87.9%;
-    opacity: 1;
-  }
-  91% {
-    offset-distance: 92.8%;
-    opacity: 1;
-  }
-  95%,
+  98%,
   100% {
-    offset-distance: 100%;
     opacity: 0;
+    transform: translate(210px, 298px);
+  }
+}
+
+@keyframes hero-split-right {
+  0%,
+  72% {
+    opacity: 0;
+    transform: translate(210px, 230px);
+  }
+  75% {
+    opacity: 1;
+    transform: translate(210px, 230px);
+  }
+  82% {
+    opacity: 1;
+    transform: translate(300px, 230px);
+  }
+  88%,
+  93% {
+    opacity: 1;
+    transform: translate(300px, 298px);
+  }
+  98%,
+  100% {
+    opacity: 0;
+    transform: translate(300px, 298px);
   }
 }
 
 @keyframes hero-code-loader {
-  0%,
-  42% {
+  0% {
     opacity: 0;
     stroke-dashoffset: 0.22;
   }
-  46% {
+  3% {
     opacity: 1;
     stroke-dashoffset: 0.22;
   }
-  94% {
+  16% {
     opacity: 1;
     stroke-dashoffset: -0.78;
   }
+  20%,
   100% {
     opacity: 0;
     stroke-dashoffset: -0.78;
@@ -191,18 +201,44 @@ body {
 }
 
 .hero-diagram-node {
-  offset-rotate: 0deg;
-  offset-anchor: center;
+  transform-box: view-box;
+  transform-origin: 0 0;
 }
 
-.hero-diagram-node-intro {
-  opacity: 0;
-  animation: hero-intro 7s linear 0.8s forwards;
+.hero-diagram-packet,
+.hero-diagram-split,
+.hero-code-loader,
+.hero-code-mark,
+.hero-diagram-visit {
+  animation-duration: 22s;
+  animation-timing-function: linear;
+  animation-delay: 1.15s;
+  animation-iteration-count: infinite;
 }
 
-.hero-diagram-node-main {
+.hero-code-mark {
+  animation-name: hero-code-mark;
+}
+
+.hero-diagram-packet {
   opacity: 0;
-  animation: hero-packet 16s linear 7.8s infinite;
+  animation-name: hero-packet-route;
+}
+
+.hero-diagram-split {
+  opacity: 0;
+}
+
+.hero-diagram-split-left {
+  animation-name: hero-split-left-b;
+}
+
+.hero-diagram-split-center {
+  animation-name: hero-split-center-b;
+}
+
+.hero-diagram-split-right {
+  animation-name: hero-split-right-b;
 }
 
 .hero-code-loader {
@@ -212,100 +248,37 @@ body {
   stroke-linecap: round;
   stroke-dasharray: 0.22 0.78;
   opacity: 0;
-  animation: hero-code-loader 7s linear 0.8s forwards;
-}
-
-.hero-diagram-visit {
-  animation-duration: 16s;
-  animation-timing-function: linear;
-  animation-delay: 7.8s;
-  animation-iteration-count: infinite;
-}
-
-.hero-diagram-visit-browser {
-  animation-name: hero-visit-browser;
-  animation-duration: 7s;
-  animation-delay: 0.8s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-}
-
-.hero-diagram-visit-code {
-  animation-name: hero-visit-code;
-  animation-duration: 7s;
-  animation-delay: 0.8s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
+  animation-name: hero-code-loader-spin;
 }
 
 .hero-diagram-visit-hub {
-  animation-name: hero-visit-hub;
+  animation-name: hero-visit-hub-b;
 }
 
-.hero-diagram-visit-leaf-left {
-  animation-name: hero-visit-leaf-left;
-}
-
-.hero-diagram-visit-leaf-center {
-  animation-name: hero-visit-leaf-center;
-}
-
+.hero-diagram-visit-leaf-left,
+.hero-diagram-visit-leaf-center,
 .hero-diagram-visit-leaf-right {
-  animation-name: hero-visit-leaf-right;
+  animation-name: hero-visit-leaf-b;
 }
 
 .hero-diagram-visit-side-left {
-  animation-name: hero-visit-side-left;
+  animation-name: hero-visit-side-left-b;
 }
 
 .hero-diagram-visit-side-right {
-  animation-name: hero-visit-side-right;
-}
-
-@keyframes hero-visit-browser {
-  0%,
-  24% {
-    stroke: var(--accent);
-    filter: drop-shadow(0 0 6px var(--accent));
-  }
-  36%,
-  100% {
-    stroke: rgba(255, 255, 255, 0.7);
-    filter: none;
-  }
-}
-
-@keyframes hero-visit-code {
-  0%,
-  40% {
-    stroke: rgba(255, 255, 255, 0.65);
-    filter: none;
-  }
-  46%,
-  94% {
-    stroke: var(--accent);
-    filter: drop-shadow(0 0 6px var(--accent));
-  }
-  100% {
-    stroke: rgba(255, 255, 255, 0.65);
-    filter: none;
-  }
+  animation-name: hero-visit-side-right-b;
 }
 
 @keyframes hero-visit-hub {
   0%,
-  7.6%,
-  13.6%,
-  49.4%,
-  55.4%,
+  64%,
+  78%,
   100% {
     stroke: rgba(255, 255, 255, 0.7);
     filter: none;
   }
-  9.1%,
-  12.1%,
-  50.9%,
-  53.9% {
+  68%,
+  76% {
     stroke: var(--accent);
     filter: drop-shadow(0 0 6px var(--accent));
   }
@@ -313,14 +286,14 @@ body {
 
 @keyframes hero-visit-leaf-left {
   0%,
-  18.8%,
-  24.8%,
+  84%,
+  96%,
   100% {
     stroke: rgba(255, 255, 255, 0.5);
     filter: none;
   }
-  20.3%,
-  23.3% {
+  88%,
+  94% {
     stroke: var(--accent);
     filter: drop-shadow(0 0 6px var(--accent));
   }
@@ -328,14 +301,14 @@ body {
 
 @keyframes hero-visit-leaf-right {
   0%,
-  38.2%,
-  44.2%,
+  84%,
+  96%,
   100% {
     stroke: rgba(255, 255, 255, 0.5);
     filter: none;
   }
-  39.7%,
-  42.7% {
+  88%,
+  94% {
     stroke: var(--accent);
     filter: drop-shadow(0 0 6px var(--accent));
   }
@@ -343,14 +316,14 @@ body {
 
 @keyframes hero-visit-leaf-center {
   0%,
-  55.9%,
-  61.9%,
+  84%,
+  96%,
   100% {
     stroke: rgba(255, 255, 255, 0.5);
     filter: none;
   }
-  57.4%,
-  60.4% {
+  88%,
+  94% {
     stroke: var(--accent);
     filter: drop-shadow(0 0 6px var(--accent));
   }
@@ -358,14 +331,14 @@ body {
 
 @keyframes hero-visit-side-left {
   0%,
-  69.5%,
-  75.5%,
+  32%,
+  44%,
   100% {
     stroke: rgba(255, 255, 255, 0.55);
     filter: none;
   }
-  71%,
-  74% {
+  36%,
+  42% {
     stroke: var(--accent);
     filter: drop-shadow(0 0 6px var(--accent));
   }
@@ -373,14 +346,14 @@ body {
 
 @keyframes hero-visit-side-right {
   0%,
-  83.1%,
-  89.1%,
+  50%,
+  62%,
   100% {
     stroke: rgba(255, 255, 255, 0.55);
     filter: none;
   }
-  84.6%,
-  87.6% {
+  54%,
+  60% {
     stroke: var(--accent);
     filter: drop-shadow(0 0 6px var(--accent));
   }
@@ -396,11 +369,25 @@ body {
     scroll-behavior: auto;
   }
 
+  html,
+  body {
+    scrollbar-width: auto;
+    -ms-overflow-style: auto;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: block;
+    width: initial;
+    height: initial;
+  }
+
   .hero-diagram-line,
   .hero-diagram-shape,
   .hero-diagram-node,
   .hero-diagram-visit,
   .hero-code-loader,
+  .hero-code-mark,
   .reveal {
     animation: none !important;
     opacity: 1 !important;
