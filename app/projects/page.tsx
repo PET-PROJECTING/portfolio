@@ -1,18 +1,25 @@
+import { Suspense } from "react";
 import Projects from "@/app/components/Projects";
 
+type ProjectsSearchParams = {
+  project?: string | string[];
+  open?: string | string[];
+  from?: string | string[];
+};
+
 type ProjectsPageProps = {
-  searchParams: Promise<{
-    project?: string | string[];
-    open?: string | string[];
-    from?: string | string[];
-  }>;
+  searchParams: Promise<ProjectsSearchParams>;
 };
 
 function firstParam(value: string | string[] | undefined) {
   return Array.isArray(value) ? value[0] : value;
 }
 
-export default async function ProjectsPage({ searchParams }: ProjectsPageProps) {
+async function ProjectsFromSearchParams({
+  searchParams,
+}: {
+  searchParams: Promise<ProjectsSearchParams>;
+}) {
   const params = await searchParams;
   const initialProjectSlug = firstParam(params.project);
   const openDrawer = firstParam(params.open) === "1";
@@ -26,5 +33,13 @@ export default async function ProjectsPage({ searchParams }: ProjectsPageProps) 
       openDrawer={openDrawer}
       fromTeaser={fromTeaser}
     />
+  );
+}
+
+export default function ProjectsPage({ searchParams }: ProjectsPageProps) {
+  return (
+    <Suspense fallback={null}>
+      <ProjectsFromSearchParams searchParams={searchParams} />
+    </Suspense>
   );
 }
